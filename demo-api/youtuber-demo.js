@@ -16,9 +16,9 @@ app.use(express.json());
 
 app.listen(port);
 
-let allYoutubers = [];
-
 app.get("/youtubers", (req, res) => {
+  let allYoutubers = [];
+
   youtubers.forEach((youtuber) => {
     allYoutubers.push(youtuber);
   });
@@ -40,9 +40,9 @@ app.get("/youtubers/:id", (req, res) => {
 });
 
 app.post("/youtubers", (req, res) => {
-  const { channelTitle, subscriber, videoCount } = req.body;
+  const { channelTitle, subscribers, videoCount } = req.body;
 
-  youtubers.set(id++, new YouTuber(channelTitle, subscriber, videoCount));
+  youtubers.set(id++, new YouTuber(channelTitle, subscribers, videoCount));
 
   res.json(`Welcome ${channelTitle}!`);
 });
@@ -69,4 +69,26 @@ app.delete("/youtubers/:id", (req, res) => {
   res.json({
     message: `${channelTitle}님 이용해주셔서 감사합니다.`,
   });
+});
+
+app.put("/youtubers/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const { channelTitle, subscribers, videoCount } = req.body;
+
+  const youtuber = youtubers.get(id);
+  if (!youtuber) {
+    res.json({
+      message: "그런 채널 없소",
+    });
+  }
+
+  youtuber.channelTitle =
+    channelTitle === undefined ? youtuber.channelTitle : channelTitle;
+  youtuber.subscribers =
+    subscribers === undefined ? youtuber.subscribers : subscribers;
+  youtuber.videoCount =
+    videoCount === undefined ? youtuber.videoCount : videoCount;
+  youtubers.set(id, youtuber);
+
+  res.json(youtubers.get(id));
 });

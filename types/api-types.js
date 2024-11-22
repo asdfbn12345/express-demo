@@ -1,7 +1,7 @@
 class YouTuber {
-  constructor(channelTitle, subscriber, videoCount) {
+  constructor(channelTitle, subscribers, videoCount) {
     this.channelTitle = channelTitle;
-    this.subscriber = subscriber;
+    this.subscribers = subscribers;
     this.videoCount = videoCount;
   }
 }
