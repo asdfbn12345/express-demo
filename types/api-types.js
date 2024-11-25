@@ -1,4 +1,4 @@
-class YouTuber {
+class Youtuber {
   constructor(channelTitle, subscribers, videoCount) {
     this.channelTitle = channelTitle;
     this.subscribers = subscribers;
@@ -6,4 +6,4 @@ class YouTuber {
   }
 }
 
-exports.YouTuber = YouTuber;
+exports.Youtuber = Youtuber;
